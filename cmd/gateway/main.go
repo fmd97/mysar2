@@ -24,6 +24,8 @@ func main() {
 	http.Handle("/api/feed", feed2json.Handler(
 		feed2json.StaticURLInjector("https://news.ycombinator.com/rss"),
 		nil, nil, nil, cacheControlMiddleware))
+	
+	http.HandleFunc("/yolo", hello) 
 	log.Fatal(listener(portStr, nil))
 }
 
@@ -32,4 +34,9 @@ func cacheControlMiddleware(h http.Handler) http.Handler {
 		w.Header().Set("Cache-Control", "public, max-age=300")
 		h.ServeHTTP(w, r)
 	})
+}
+
+
+func hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w,"yuppy")	
 }
