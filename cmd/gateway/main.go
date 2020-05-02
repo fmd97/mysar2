@@ -18,14 +18,14 @@ func main() {
 	if *port != -1 {
 		portStr = fmt.Sprintf(":%d", *port)
 		listener = http.ListenAndServe
-		http.Handle("/", http.FileServer(http.Dir("./public")))
+//		http.Handle("/", http.FileServer(http.Dir("./public")))
+		http.Handle("/", hello)
 	}
 
 	http.Handle("/api/feed", feed2json.Handler(
 		feed2json.StaticURLInjector("https://news.ycombinator.com/rss"),
 		nil, nil, nil, cacheControlMiddleware))
 	
-	http.HandleFunc("/yolo", hello) 
 	log.Fatal(listener(portStr, nil))
 }
 
