@@ -19,7 +19,7 @@ func main() {
 		portStr = fmt.Sprintf(":%d", *port)
 		listener = http.ListenAndServe
 //		http.Handle("/", http.FileServer(http.Dir("./public")))
-		http.Handle("/", hello)
+		http.HandleFunc("/", hello)
 	}
 
 	http.Handle("/api/feed", feed2json.Handler(
